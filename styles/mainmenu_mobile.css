@@ -1,0 +1,47 @@
+#mainmenu_mobile
+{
+    width:300px;
+    position:fixed;
+    left:35px;
+    top:35px;
+    z-index:2;
+    background-color:white;
+}
+#mainmenu_mobile.invisible
+{
+    display:none;
+}
+
+#mainmenu_mobile > div
+{
+    text-align:center;
+}
+
+#mainmenu_mobile > div > div:first-of-type
+{
+    font-weight:bold;
+    background-color:silver;
+    font-size:15pt;
+}
+
+#mainmenu_mobile > div > ul
+{
+    margin:0px;
+    padding:0px;
+}
+#mainmenu_mobile > div > ul > li
+{
+    list-style:none;
+    color:black;
+    background-color:white;
+    cursor:pointer;
+    padding-top:3px;
+    padding-bottom:3px;
+    font-size:14pt;
+}
+
+#mainmenu_mobile > div > ul > li > a
+{
+    text-decoration:none;
+    color:gray;
+}

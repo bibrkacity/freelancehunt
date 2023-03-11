@@ -1,0 +1,34 @@
+div#wrapper.mobile * #header_logo
+	{
+	display:none;
+	}
+
+
+div#wrapper.mobile *  #header_client
+	{
+	display:none;
+	}
+
+div#wrapper.mobile *  #header_office
+	{
+	display:none;
+	}
+
+
+div#wrapper.mobile *  #header_user
+	{
+	display:none;
+	}
+
+div#wrapper.mobile *  #header_menu
+	{
+	display:none;
+	}
+
+
+div#wrapper.mobile * #header_order
+{
+	position:absolute;
+	right:10px;
+	top:10px;
+}

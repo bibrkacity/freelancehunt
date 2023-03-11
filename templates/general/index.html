@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <title>##title##</title>
+  <meta name="generator" content="editplus" />
+  <meta name="author" content="Yuriy" />
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="stylesheet" href="css/general##cssSuffix()##.css" type="text/css" />
+  <link rel="stylesheet" href="css/header##cssSuffix()##.css" type="text/css" />
+
+  ##css_menu()##
+
+  <link rel="stylesheet" href="/styles/messages.css" type="text/css">
+  <link rel="stylesheet" href="/styles/login.css" type="text/css">
+
+  <link rel="stylesheet" href="css/footer.css" type="text/css" />
+
+  <script type="text/javascript" src="/javascript/resize.js"></script>
+  <script type="text/javascript" src="/javascript/messages.js"></script>
+
+  ##add_css##
+  ##add_js##
+
+ </head>
+
+ <body>
+
+<div id="wrapper" class="##wrapperClass()##" ##wrapperOnClick()##>
+
+<div id="header_outer">
+##header_outer()##
+</div>	
+
+<div id="content_outer">
+	<div id="content">
+		 ##content()##
+	</div>
+</div>	
+
+<div id="footer_outer">
+	##footer()##
+</div>
+
+</div><!-- /id="wrapper" -->
+
+##m()##
+
+##header_menu_mobile()##
+
+<script type="text/javascript">
+
+	show_messages(##show_messages##);
+
+    resize();
+	window.onresize=resize;
+
+</script>
+ </body>
+</html>

@@ -1,0 +1,41 @@
+table.details
+	{
+	border-collapse:collapse;
+	}
+
+table.details * td, table.details * th
+	{
+	border:1px solid gray;
+	padding:3px;
+	font-size:12pt;
+	}
+
+table.details * table
+	{
+	border-collapse:collapse;
+	}
+
+	table.details * td > select,table.details * td > textarea,table.details * td > input
+		{
+		font-size:12pt;
+		}
+
+@media screen and (max-width:500px)/*(max-device-width: 1024px) */
+{
+	table.details * td, table.details * th
+		{
+		font-size:8pt;
+		padding:1px;
+		}
+
+	table.details * td > select,table.details * td > textarea,table.details * td > input
+		{
+		font-size:8pt;
+		}
+
+}
+
+table.details * td[colspan="2"]
+	{
+	text-align:center;
+	}

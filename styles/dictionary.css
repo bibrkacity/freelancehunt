@@ -1,0 +1,146 @@
+div#dictionary_caption
+{
+	width:100%;
+	height:60px;
+}
+
+div#dictionary_caption > h1
+{
+	margin-bottom:5px;
+	padding-bottom:0px;
+}
+
+div#dictionary_caption > div.buttons
+{
+	height:22px;
+	position:relative;
+	margin-bottom:10px;
+}
+
+div#dictionary_caption > div.buttons > form
+{
+	display:inline;
+}
+
+div#dictionary_caption > div.buttons > span#tri
+{
+	color:#42A1FD;
+}
+
+
+div#dictionary_caption > div.buttons > div#search_popup
+{
+	position:absolute;
+	left:0px;
+	top:20px;
+	background-color:silver;
+}
+
+div#dictionary_caption > div.buttons > div#search_popup.hidden
+{
+	display:none;
+}
+
+div#dictionary_caption > div.buttons > div#search_popup.show
+{
+	display:block;
+	z-index:7;
+}
+
+div#dictionary_caption > div.buttons > div#search_popup > table
+{
+	border-collapse:collapse;
+}
+div#dictionary_caption > div.buttons > div#search_popup > table * td
+{
+	border:1px solid gray;
+}
+
+input.knopka[type="submit"],input.knopka[type="button"]
+{
+	font-size:10pt;
+}
+@media screen and (max-width:500px)/*(max-device-width: 1024px) */
+{
+	input.knopka[type="submit"],input.knopka[type="button"]
+	{
+		font-size:8pt;
+	}
+}
+
+div.pages
+	{
+	}
+
+table.dictionary
+	{
+	border-collapse:collapse;
+	}
+
+table.dictionary > tbody > tr > td, table.dictionary > tbody > tr > th
+	{
+	border:1px solid gray;
+	padding:2px;
+	font-size:10pt;
+	}
+
+@media screen and (max-width:500px)/*(max-device-width: 1024px) */
+{
+table.dictionary > tbody > tr > td, table.dictionary > tbody > tr > th
+	{
+	border:1px solid gray;
+	padding:1px;
+	font-size:8pt;
+	}
+}
+
+table.dictionary > tbody > tr > td:first-of-type
+	{
+	text-align:center;
+	}
+
+
+table.dictionary > tbody > tr > td:first-of-type > a
+	{
+	font-size:15pt;
+	}
+@media screen and (max-width:500px)/*(max-device-width: 1024px) */
+{
+table.dictionary > tbody > tr > td:first-of-type > a
+	{
+	font-size:11pt;
+	}
+}
+
+
+table.dictionary > tbody > tr.expired > td
+	{
+	color:black;
+	background-color:#ffccff;
+	}
+
+table.dictionary > tbody > tr.annulated > td
+	{
+	color:#a3a3a3;
+	background-color:#c5c5c5;
+	}
+
+table.sort
+	{
+	border:none;
+	}
+
+
+table.sort * td
+	{
+	color:red;
+	background-color:white;
+	border:none;
+	}
+
+table.sort * td > a
+	{
+	color:blue;
+	text-decoration:none;
+	border:none;
+	}

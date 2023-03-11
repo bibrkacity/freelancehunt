@@ -1,0 +1,62 @@
+h2
+{
+	margin-bottom:0px;
+}
+h2 + p
+{
+	margin-top:0px;
+	padding-top:0px;
+	font-style:italic;
+	font-size:11pt;
+}
+
+div.group
+{
+	margin-left:25px;
+
+}
+
+div.group
+{
+	margin-left:25px;
+
+}
+
+
+div.group > div.setting
+{
+
+
+}
+
+div.group > div.setting > div
+{
+
+
+}
+
+div.group > div.setting > div > h3
+{
+	font-size:12pt;
+	margin-bottom:0px;
+	padding-bottom:0px;
+}
+
+div.group > div.setting > div > h3 + p
+{
+	margin-top:0px;
+	padding-top:0px;
+	font-style:italic;
+	font-size:9pt;
+	margin-bottom:2px;
+	padding-bottom:0px;
+}
+
+div.group > div.setting > div > form > p
+{
+	margin-top:2px;
+	padding-top:0px;
+	font-style:italic;
+
+
+}

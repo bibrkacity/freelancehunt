@@ -1,0 +1,59 @@
+/*----------------------------------
+Выбор цвета
+------------------------------------*/
+table.palette
+	{
+	border:1px outset black;
+	}
+
+td.palette
+	{
+	height:5px;
+	width:7px;
+	}
+
+div.palette
+	{
+	position:absolute;
+	left:500px;
+	display:none;
+	z-index:500;
+	width:300px;
+	top:20px;
+	border:3px outset gray;
+	background-color:white;
+	}
+
+span.palette
+	{
+	position:absolute;
+	top:0px;
+	left:280px;
+	font-size:20px;
+	cursor:pointer;
+	cursor:hand;
+	}
+	
+/*----------------------------------
+Панель инструментов
+------------------------------------*/
+
+div.toolbar
+{
+	position:relative;
+	height:40px;
+}
+div.toolbar_button
+{
+	position:absolute;
+}
+input.toolbar
+{
+	font-size:9pt;
+	font-family:verdana,arial,tahoma;
+}
+li
+{
+font-size:8pt;
+
+}
