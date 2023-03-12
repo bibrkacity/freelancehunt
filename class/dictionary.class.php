@@ -1,9 +1,8 @@
 <?php
 
-/*==============================
-Базовый класс для страниц справочников
-================================*/
-
+/**
+ * Базовый класс для страниц справочников
+ */
 abstract class dictionary
 {
 
@@ -35,11 +34,11 @@ abstract class dictionary
 
 abstract public function search();  //HTML-код, вставляемый в окно поиска
 
-abstract protected function exists();	//Таблица объектов
-abstract protected function filters();  //Строка, содержащая критерии отбора (в шапке таблицы)
+abstract protected function exists()  : string;	//Таблица объектов
+abstract protected function filters() : string;  //Строка, содержащая критерии отбора (в шапке таблицы)
 
-abstract protected function query_pages();	//Составление запроса количества отобранных объектов
-abstract protected function query_total();  //Составление запроса количества всех объектов
+abstract protected function query_pages() : string;	//Составление запроса количества отобранных объектов
+abstract protected function query_total() : string;  //Составление запроса количества всех объектов
 
 
 /* конструктор для производных классов */
@@ -78,7 +77,6 @@ public function __construct($action,$get,$post,$connection=null)
 			$this->conn= $connection;
 			}
 
-
 	}
 
 // запускается при  попытке получить извне значенеи защищённого свойства 
@@ -106,6 +104,7 @@ public function html(): string //HTML-код страницы справочни
 		if(count($this->filters)>0)
 		    $html.= $this->button_search();
 
+        $html.= $this->button_additional();
 
 		$html.="</div>";
 					
@@ -150,10 +149,8 @@ protected function combo() //Список вариантов количеств�
 			}
 		}
 
-	
-
 	$select = new select('inpage',$pages,$this->in_page,'onchange="location.href=\''.$url.'\'"');
-	return 'Вывести на страницу:'.$select->html();
+	return 'Вивести на сторінку:'.$select->html();
 
 
 	}
@@ -173,7 +170,10 @@ protected function button_search()
 
 	}
 
-
+    protected function button_additional() : string
+    {
+        return '';
+    }
 //-----------------------------------------------------------
 
 protected function fill_arrays() //Заполнение массивов фильтров и параметров сортировки на основе GET
@@ -559,9 +559,7 @@ function js_search()
 
 		$js.="
 		self.location.href='".$this->action."?inpage=".$this->in_page."'+query;
-
 	}
-
 	</script>
 	";
 
@@ -574,7 +572,7 @@ function js_search()
 protected function table_sort($property)
 	{
 
-	$html="<table  class=\"sort\" cellspacing=\"0\">";
+	$html="<table  class=\"sort\">";
 	$html.="<tr>";
 	$html.="<td>";
 
@@ -645,7 +643,7 @@ protected function th_sort($name,$sort_name)
 	{
 
 	$html="<th class=\"usual_small\">";
-		$html.="<table cellspacing=\"0\">";
+		$html.="<table>";
 		$html.="<tr>";
 		$html.="<td>";
 		$html.=$this->table_sort($sort_name);

@@ -3,22 +3,17 @@
 class projects extends dictionary
 {
 
-    public function __construct($action, $get, $post, $connection = null)
+    public function __construct(string $action, array $get, array $post, $connection = null)
     {
         parent::__construct($action, $get, $post, $connection);
 
         //Поля для сортировки
-        $this->sorting_fields = array('name', 'url', 'budget', 'currency', 'employee_id');
+        $this->sorting_fields = ['id', 'url', 'budget'];
 
         //Перечень фильтров и их значение по умолчанию
         $this->filters_default = array
         (
-          'byName' => ''
-        , 'byUrl' => ''
-        , 'byBudget' => ''
-        , 'byCurrency' => ''
-        , 'byEmployee_id' => ''
-
+         'bySkill' => '0'
         );
 
         $this->optional_fields = array();
@@ -26,18 +21,36 @@ class projects extends dictionary
 
         $this->fill_arrays();
 
-        $this->title = 'Проекты';
-        $this->search_title =  'Поиск';
+        $this->title = 'Проекти';
+        $this->search_title =  'Пошук';
 
         $this->dict_class = __CLASS__;
     }
 
-
-//-----------------------------------------------------
-    public function search()
+    public function search() : string
     {
 
+        global $conn;
+
+        $query =" SELECT * FROM `skills` ORDER BY `name`";
+        $result = mysqli_query($this->conn, $query ) ;
+        $options = [ 0=> '--Немає відбору--'];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $options[ (int)$row['id'] ] = $row['name'];
+        }
+        mysqli_free_result($result);
+
+        $select = new select('',$options, $this->filters['bySkill'],'id="bySkill"');
+        $combo=$select->html();
+
         $html = '<table class="usual">';
+
+        $html .= '<tr>';
+        $html .= '<td>Skill:</td>';
+        $html .= "<td>$combo</td>";
+
+
+        $html .= "</tr>";
 
         $html .= '<tr>';
         $html .= '<td colspan="2"><input type="button" value="Поиск" onclick="search_submit()" /></td>';
@@ -48,42 +61,33 @@ class projects extends dictionary
         return $html;
     }
 
-    /*=============================================
-         PROTECTED
-    ==============================================*/
-
-
-    protected function exists()
+    protected function exists(): string
     {
 
-        $query = "SELECT projects.*
-						FROM projects
+        $query = "SELECT `projects`.* , concat(`employees`.`first_name`,' ',`employees`.`last_name`) `employee`,  `employees`.`login`
+				  FROM `projects` 
+                    JOIN `employees` ON (`projects`.`employee_id` = `employees`.`id`)
 						";
+
+        if( $this->filters['bySkill'] != '0')
+            $query .= " JOIN `project_skill` ON (`projects`.`id` = `project_skill`.`project_id`)";
 
         $query .= $this->where();
 
-        if ($this->sorting_fields['name'] != 'no')
-            $query .= " order by projects.name " . $this->sorting_fields['name'];
-
-        elseif ($this->sorting_fields['url'] != 'no')
-            $query .= " order by projects.url " . $this->sorting_fields['url'];
+        if ($this->sorting_fields['id'] != 'no')
+            $query .= " order by projects.id " . $this->sorting_fields['id'];
 
         elseif ($this->sorting_fields['budget'] != 'no')
             $query .= " order by projects.budget " . $this->sorting_fields['budget'];
 
-        elseif ($this->sorting_fields['currency'] != 'no')
-            $query .= " order by projects.currency " . $this->sorting_fields['currency'];
-
-        elseif ($this->sorting_fields['employee_id'] != 'no')
-            $query .= " order by projects.employee_id " . $this->sorting_fields['employee_id'];
-
         else {
-            $this->sorting_fields['name'] = 'asc';
-            $query .= " order by projects.name " . $this->sorting_fields['name'];
+            $this->sorting_fields['id'] = 'asc';
+            $query .= " order by projects.id " . $this->sorting_fields['id'];
         }
 
         if ($this->in_page != 0)
             $query .= " LIMIT " . ($this->page - 1) * $this->in_page . "," . $this->in_page;
+
         $result = mysqli_query($this->conn, $query ) ;
         $tr = '';
         while ($row = mysqli_fetch_assoc($result)) {
@@ -94,11 +98,9 @@ class projects extends dictionary
             $tr .= '</td>';
 
             $tr .= '<td>';
+            $tr .= '<a href="'.$row['url'].'">';
             $tr .= stripslashes($row['name']);
-            $tr .= '</td>';
-
-            $tr .= '<td>';
-            $tr .= stripslashes($row['url']);
+            $tr .= '</a>';
             $tr .= '</td>';
 
             $tr .= '<td>';
@@ -106,11 +108,11 @@ class projects extends dictionary
             $tr .= '</td>';
 
             $tr .= '<td>';
-            $tr .= stripslashes($row['currency']);
+            $tr .= $row['employee'];
             $tr .= '</td>';
 
             $tr .= '<td>';
-            $tr .= number_format($row['employee_id'], 2, ',', ' ');
+            $tr .= $row['login'];
             $tr .= '</td>';
 
             $tr .= '</tr>';
@@ -118,7 +120,7 @@ class projects extends dictionary
         }//end while
 
         if ($tr == '') {
-            return '<h2>Не найдено проектов в базе</h2>' . $this->filters();
+            return '<h2>Не знайдено проектів у базі</h2>' . $this->filters();
         }
 
         $colspan = 5;
@@ -128,17 +130,16 @@ class projects extends dictionary
         $html = $pages;
         $html .= '
 		<table class="dictionary"><tr><th id="table_caption" colspan="' . $colspan . '">';
-        $html .= "$n  из общего числа " . $this->total() . ' проектов';
+        $html .= "$n  із загальної кількості " . $this->total() . ' проектів';
         $html .= '<br />' . $this->filters();
         $html .= "</th></tr>";
         $html .= '<tr>';
 
-        $html .= $this->th_sort('','id');
-        $html .= $this->th_sort('','name');
-        $html .= $this->th_sort('','url');
-        $html .= $this->th_sort( '', 'budget');
-        $html .= $this->th_sort( '', 'currency');
-        $html .= $this->th_sort( '', 'employee_id');
+        $html .= $this->th_sort('id','id');
+        $html .= '<th>Назва</th>';
+        $html .= $this->th_sort( 'Бюджет, грн', 'budget');
+        $html .= '<th>Замовник</th>';
+        $html .= '<th>Логин замовникa</th>';
         $html .= '</tr>';
         $html .= $tr;
         $html .= '</table>';
@@ -147,13 +148,11 @@ class projects extends dictionary
         return $html;
     }
 
-
-//-----------------------------------------------------
-    protected function where()
+    protected function where() : string
     {
         $where = '';
-        if ($this->filters['byName'] != '') {
-
+        if ($this->filters['bySkill'] != '0') {
+            $where = " `project_skill`.`skill_id`=".(int)$this->filters['bySkill'];
         }
 
         if ($where != '')
@@ -161,42 +160,53 @@ class projects extends dictionary
         return $where;
     }
 
-//-----------------------------------------------------
-
-    protected function filters()
+    protected function filters() : string
     {
         $f = '';
-        if ($this->filters['byName'] != '') {
-            $f .=  '' . ': <b>' . $this->filters['byName'] . '</b>';
+        if ($this->filters['bySkill'] != '0') {
+
+            global $conn;
+            $name='';
+            $query =" SELECT `name` FROM `skills` WHERE `id`=".(int)$this->filters['bySkill'];
+            $result = mysqli_query($this->conn, $query ) ;
+            while ($row = mysqli_fetch_assoc($result)) {
+                $name= $row['name'];
+            }
+            mysqli_free_result($result);
+
+
+
+            $f .=  'Skill: <b>' . $name . '</b>';
         }
 
         if ($f == '') {
-            $f = 'Фильтры не задействованы';
+            $f = 'Фільтри не задіяні';
         } else {
-            $f = 'Применен фильтр: ' . $f;
+            $f = 'Застосований фільтр: ' . $f;
         }
 
         return $f;
     }
 
-//-----------------------------------------------------
 
-    protected /*override*/ function query_pages()//Подсчет объектов в справочнике, отобранных фильтром
+    protected /*override*/ function query_pages() : string //Подсчет объектов в справочнике, отобранных фильтром
     {
-        $query = "SELECT count(id) from projects ";
+        $query = "SELECT count(`projects`.`id`)
+				  FROM `projects` 
+                    JOIN `employees` ON (`projects`.`employee_id` = `employees`.`id`)
+						";
+
+        if( $this->filters['bySkill'] != '0')
+            $query .= " JOIN `project_skill` ON (`projects`.`id` = `project_skill`.`project_id`)";
         $query .= $this->where();
         return $query;
     }
 
-//-----------------------------------------------------
-
-    protected /*override*/ function query_total()//Подсчет всех объектов в справочнике
+    protected /*override*/ function query_total(): string //Подсчет всех объектов в справочнике
     {
         $query = "SELECT count(id) from projects ";
         return $query;
     }
-
-//-----------------------------------------------------
 
     protected function js()
     {
@@ -204,5 +214,17 @@ class projects extends dictionary
         $js .= $this->js_search();
 
         return $js;
+    }
+
+
+    protected /*override*/ function button_additional() : string
+    {
+        $html =  '<div id="graph">';
+
+        $html.="<input class=\"knopka\" type=\"button\" value=\"Діаграма\" onclick=\"graph()\" /><span id=\"tri\">&#9658;</span>";
+
+        $html .=  '</div>';
+
+        return $html;
     }
 }

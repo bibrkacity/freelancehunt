@@ -103,10 +103,10 @@ public function content(): string
             }
 
             $id = $project->id;
-            $name = $project->attributes->name;
-            $url = $project->links->self->web;
-            $budget = $project->attributes->budget->amount;
-            $currency = $project->attributes->budget->currency;
+            $name = mysqli_real_escape_string($conn,$project->attributes->name);
+            $url = mysqli_real_escape_string($conn,$project->links->self->web);
+            $budget = common::toNumber($project->attributes->budget->amount);
+            $currency = mysqli_real_escape_string($conn,$project->attributes->budget->currency);
 
             $query = "INSERT IGNORE INTO `projects` (`id`,`name`,`url`, `budget`, `currency`, `employee_id`) 
                          VALUES('$id','$name','$url','$budget','$currency', $employee_id)

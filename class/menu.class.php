@@ -1,11 +1,10 @@
 <?php
-/*===============================
+/**
 построение меню админпанели по роли в системе
 Роли:
 
 см. класс roles
-
-=================================*/
+*/
 class menu
 {
 	public $lng;			//Язык меню
@@ -74,8 +73,8 @@ protected function mainmenu_etalon()
 	{
 	$mainmenu = array
 	(
-	   1 => array ("Справочники",  array ())
-	  ,3 => array ("Импорт",  array ())
+	   1 => array ("Довідники",  array ())
+	  ,3 => array ("Імпорт",  array ())
 
 	);	
 
@@ -91,9 +90,9 @@ protected function submenu_etalon()
 		(
 		  array( 0, "Старт" , "index.php", array())
 
-		 ,array( 1, "Проекты" , "projects.php", array())
+		 ,array( 1, "Проекти" , "projects.php", array())
 
-		 ,array( 3, "Проекты" , "projects_import.php", array())
+		 ,array( 3, "Проекти" , "projects_import.php", array())
 
 		);
 
@@ -187,8 +186,6 @@ protected function div_desktop($id,$one)
 
 		$html .= '</ul></div>';
 
-		
-
 		$html.="</div>\n";
 		return $html;
 	}
@@ -198,5 +195,3 @@ protected function div_desktop($id,$one)
 
 }//end of class
 
-
-?>

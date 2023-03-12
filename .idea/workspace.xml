@@ -4,7 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e4b425cd-90fb-42d6-9fc5-d5b7db76222b" name="Changes" comment="" />
+    <list default="true" id="e4b425cd-90fb-42d6-9fc5-d5b7db76222b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/freelancehunt.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/styles/projects.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/class/dictionary.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/class/dictionary.class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/class/import.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/class/import.class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/class/menu.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/class/menu.class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/class/projects.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/class/projects.class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/projects.php" beforeDir="false" afterPath="$PROJECT_DIR$/projects.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,10 +24,17 @@
   <component name="ComposerSettings">
     <execution />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
   <component name="ProjectId" id="2MsN4yGXX6OZwBp45MVziqvmDlS" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -26,7 +44,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/home/yuriy/www/freelancehunt",
+    "last_opened_file_path": "/home/yuriy/www/freelancehunt/styles",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -36,6 +54,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/styles" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/class" />
     </key>
@@ -48,7 +67,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1678552142968</updated>
-      <workItem from="1678552145013" duration="17386000" />
+      <workItem from="1678552145013" duration="18417000" />
+      <workItem from="1678607855719" duration="4561000" />
     </task>
     <servers />
   </component>
