@@ -20,7 +20,6 @@ abstract class dictionary
 	protected $filters_default; //Фильтры и их значения по умолчанию (массив)
 
 	protected $filters; //Фильтры и их значения по умолчанию (массив)
-	protected $optional_fields;  //ЗАРЕЗЕРВИРОВАНО на будущее
 
 	protected $dict_class; //Текущий класс
 
@@ -252,14 +251,6 @@ protected function pages(&$n)   //Получение HTML-кода ссылок 
 			}
 		}
 
-	foreach($this->optional_fields as $name=>$value)
-		{
-		if($value!="none")
-			{
-			$order.="&amp;$name=".$value;
-			}
-		}
-
 	$query=$this->query_pages();
 
 	$result=mysqli_query($this->conn,$query) ;
@@ -320,188 +311,32 @@ protected function pages(&$n)   //Получение HTML-кода ссылок 
 	}
 
 
-//-----------------------------------------------------
+    protected function js(): string
+    {
+        $js  = $this->js_general();
+        $js .= $this->js_search();
+        return $js;
+    }
 
 
-protected function js_common()
-	{
-	$js="
-	<script type=\"text/javascript\">
-		
-		function switch_field(field_name)
-			{
-			var title_th=document.getElementById('table_caption');
-			var colspan=parseInt(title_th.colSpan);
-			var th=document.getElementById(field_name+'00');
-
-			var button1=document.getElementById('th_'+field_name);
-			var button2=document.getElementById('panel_'+field_name);
-
-			var display;
-			if(th.style.display=='none') 
-				{
-				display='';
-				title_th.colSpan=(colspan+1);
-
-				if(button1!=null)
-					{
-					button1.value='-';
-					button1.title='Скрыть';
-					}
-
-				if(button2!=null)
-					{
-					button2.value='-';
-					button2.title='Скрыть';
-					}
-
-				var in_xls=document.getElementById('excel_'+field_name);
-				if(in_xls!=null)
-					{
-					in_xls.value='1';
-					}
-				else
-					{
-					var f=document.getElementById('excel');
-					if(f!=null)
-						{
-						var hid=document.createElement('INPUT');
-						hid.type='hidden';
-						var hid=f.appendChild(hid);
-						hid.value='1';
-						hid.id='excel_'+field_name;
-						hid.name=field_name;
-						}
-					}
-				}
-			else
-				{
-				display='none';
-				title_th.colSpan=(colspan-1);
-
-				if(button1!=null)
-					{
-					button1.value='+';
-					button1.title='Показать';
-					}
-				if(button2!=null)
-					{
-					button2.value='+';
-					button2.title='Показать';
-					}	
-				var in_xls=document.getElementById('excel_'+field_name);
-				if(in_xls!=null)
-					{
-					in_xls.value='none';
-					}
-				}
-
-			th.style.display=display;
-
-			var cells=document.getElementsByTagName('td');
-			var re=new RegExp(field_name+'[0-9]+','g');
-			for (var i=0;i<cells.length;i++)
-				{
-				if(cells[i].id!=null)
-					{
-					if(re.test(cells[i].id))
-						{
-						cells[i].style.display=display;
-						}
-					}
-
-				}
-
-			var links=document.links;		
-			var re=/page[0-9]+/;
-			for (var i=0;i<links.length;i++)
-				{
-				if(links[i].id!=null)
-					{
-					if(re.test(links[i].id))
-						{
-						links[i].href=links[i].href+'&'+field_name+'='+display;
-						}
-					}
-				if(links[i].className!=null)
-					{
-						if(links[i].className=='sorting')
-							{
-							links[i].href=links[i].href+'&'+field_name+'='+display;
-							}
-					}
-				}
-			}
-		
-//=============================================================
-
-		var panel_state='none';
-
-		function switch_panel()
-			{
-			var div_panel=document.getElementById('panel');
-			var button=document.getElementById('panel_button');
-
-			var display;
-			if(panel_state=='none') 
-				{
-				display='block';
-				button.value='Скрыть панель добавления полей';
-				}
-			else
-				{
-				display='none';
-				button.value='Показать панель добавления полей';
-				}
-			div_panel.style.display=display;
-			panel_state=display;
-
-			}
-
-		//=============================================================
-
-";
-
-	$js .= $this->js_open_filters();
-
-	$js .= "	
-	</script>
-		";		
-	return $js;
-	
-	}	
-//-----------------------------------------------------
-protected function js_open_filters()
-	{
-	$js = "
-		function open_filters()
-			{
-			var div = document.getElementById('search_popup');
-
-			var className = div.className;
-
-			div.className = (className == 'hidden') ? 'show' : 'hidden' ;
-
-			var span = document.getElementById('tri');
-
-			span.textContent = (className == 'hidden') ? String.fromCharCode(9650) : String.fromCharCode(9658);
-			}
-			";
-	return $js; 
-
+protected function js_general(): string
+{
+    return "
+	<script type=\"text/javascript\" src=\"/javascript/dictionary/general.js\"></script>";
 	}
 
+
 //-----------------------------------------------------
 
-function js_search()
-	{
+protected function js_search(): string
+{
 	$js="
 	<script type=\"text/javascript\">
 
 	function search_submit()
 	{
-
-		var query=new String('');
+    let val_ = null;
+	let query='';
 		";
 
 		foreach($this->filters as $filter=>$value)
@@ -517,16 +352,16 @@ function js_search()
 							case 'text':
 							case 'hidden':
 
-								var val_=el.value;
+								val_=el.value;
 								break;
 							case 'checkbox':
 								if(el.checked==true)
 									{
-									var val_=el.value;
+									val_=el.value;
 									}
 								else
 									{
-									var val_=0;
+									val_=0;
 									}
 								break;
 
@@ -536,7 +371,7 @@ function js_search()
 						break;
 					case 'SELECT':
 					case 'TEXTAREA':
-						var val_=el.value;
+						val_=el.value;
 						break;
 					default:
 						if(el.length!=null)
@@ -545,7 +380,7 @@ function js_search()
 								{
 								if(el[i].checked)
 									{
-									var val_=el[i].value;
+									val_=el[i].value;
 									}
 								}
 							}
@@ -553,7 +388,7 @@ function js_search()
 					}
 				if(val_ != '".$this->filters_default[$filter]."')
 					query+='&$filter='+val_;
-				}//end if (el!=null)
+				}
 				";
 				}
 
@@ -622,14 +457,6 @@ protected function sorting_url($field,$value)
 		if( $this->filters_default[$field2] !=  $value2)
 			$url_common.="&amp;".$field2."=".urlencode($value2);
 		}
-	foreach($this->optional_fields as $field2=>$value2)
-		{
-		if($value!="none")
-			{
-			$url_common.="&amp;".$field2."=".$value2;
-			}
-		}
-	//$url_common=substr($url_common,5);
 
 	$url=$this->action."?$url_common&amp;$field=$value";
 

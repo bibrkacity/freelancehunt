@@ -16,9 +16,6 @@ class projects extends dictionary
          'bySkill' => '0'
         );
 
-        $this->optional_fields = array();
-        $this->optional_names = array();
-
         $this->fill_arrays();
 
         $this->title = 'Проекти';
@@ -208,23 +205,39 @@ class projects extends dictionary
         return $query;
     }
 
-    protected function js()
+    protected function js() : string
     {
-        $js = $this->js_common();
-        $js .= $this->js_search();
-
+        $js  = parent::js();
+        $js .= $this->js_graph();
         return $js;
     }
 
 
     protected /*override*/ function button_additional() : string
     {
-        $html =  '<div id="graph">';
+        $html = "\n" . '<div id="graph">';
 
-        $html.="<input class=\"knopka\" type=\"button\" value=\"Діаграма\" onclick=\"graph()\" /><span id=\"tri\">&#9658;</span>";
+        $html.="\n\t<input class=\"knopka\" type=\"button\" value=\"Діаграма\" onclick=\"graph()\" /><span id=\"tri\">&#9658;</span>";
 
-        $html .=  '</div>';
+        $html.="\n\t<div id=\"graph_popup\">";
+
+        $html.=$this->graph();
+
+        $html.="\n\t</div>";
+
+        $html .= "\n" .'</div>';
 
         return $html;
+    }
+
+    private function js_graph() : string
+    {
+        return "
+	<script type=\"text/javascript\" src=\"/javascript/dictionary/graph.js\"></script>";
+    }
+
+    private function graph() : string
+    {
+        return 'stub';
     }
 }
