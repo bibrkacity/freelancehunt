@@ -1,9 +1,17 @@
 <?php
 
+/**
+ * Построение HTML-кода по вьюхам
+ */
 class view
 {
 
-public static function render($view,$obj)
+    /**
+     * @param string $view имя файла вьюхи без расширения (папка views)
+     * @param object|null $obj объект, свойства и методы которого используются для замены маркеров вьюхи
+     * @return string
+     */
+    public static function render(string $view, object $obj=null):string
 	{
 
 	$filename = self::getDir();

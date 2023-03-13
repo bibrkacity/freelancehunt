@@ -5,11 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e4b425cd-90fb-42d6-9fc5-d5b7db76222b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/views/start.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc/constants.php" beforeDir="false" afterPath="$PROJECT_DIR$/inc/constants.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/class/common.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/class/common.class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/class/dictionary.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/class/dictionary.class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/class/menu.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/class/menu.class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/class/page.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/class/page.class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/class/projects.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/class/projects.class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/class/roles.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/class/roles.class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/class/select.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/class/select.class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/class/view.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/class/view.class.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +30,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2MsN4yGXX6OZwBp45MVziqvmDlS" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -34,24 +38,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/yuriy/www/freelancehunt/styles&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/home/yuriy/www/freelancehunt/class",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/class" />
       <recent name="$PROJECT_DIR$/styles" />
       <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/class" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -65,7 +69,7 @@
       <workItem from="1678552145013" duration="18417000" />
       <workItem from="1678607855719" duration="6057000" />
       <workItem from="1678655573191" duration="3614000" />
-      <workItem from="1678685639331" duration="6096000" />
+      <workItem from="1678685639331" duration="10788000" />
     </task>
     <task id="LOCAL-00001" summary="Список проектов (без диаграммы)">
       <created>1678612717668</created>
@@ -88,7 +92,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678691242368</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="README.md">
+      <created>1678692851576</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1678692851576</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -98,6 +109,7 @@
     <MESSAGE value="Список проектов (без диаграммы)" />
     <MESSAGE value="Рефакторинг JS" />
     <MESSAGE value="Диаграмма" />
-    <option name="LAST_COMMIT_MESSAGE" value="Диаграмма" />
+    <MESSAGE value="README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="README.md" />
   </component>
 </project>

@@ -2,74 +2,87 @@
 /**
 построение меню админпанели по роли в системе
 Роли:
-
 см. класс roles
 */
 class menu
 {
-	public $lng;			//Язык меню
-	public $mainmenu;		//Массив главного меню 
-	public $submenu;		//Массив подменю 
 
-//--------------------------------------------------------------
+    /**
+     * Массив главного меню
+     * @var array
+     */
+    public array $mainmenu;
 
-function __construct()
+    /**
+     * Массив Массив подменю
+     * @var array
+     */
+	public array $submenu;
+
+    function __construct()
 	{
-	$this->mainmenu=$this->mainmenu_basic();
-	$this->submenu=$this->submenu_basic();
+        $this->mainmenu=$this->mainmenu_basic();
+        $this->submenu=$this->submenu_basic();
 	}
 
-//--------------------------------------------------------------
-
-public function itemName($fileName) //используется для формирования TITLE страницы админпанели
+    /**
+     * /используется для формирования TITLE страницы
+     * @param string $fileName
+     * @return mixed|string
+     */
+    public function itemName(string $fileName)
 	{
-	$name="";
-	foreach($this->submenu as $key=>$array)
-		{
-		if($array[2]==$fileName)
-			{
-			$name=$array[1];
-			break;
-			}
-		}
-
-	if(($name == '') && ($fileName == 'index.php'))
-		$name ='Старт';
-	return $name;
-	}
-
-//--------------------------------------------------------------
-
-public function allow($fileName) //
-	{
-	$allow=false;
-
-    if(USER_ROLE_ID == roles::ADMIN)
-        $allow=true;
-    else
+        $name="";
         foreach($this->submenu as $key=>$array)
             {
             if($array[2]==$fileName)
                 {
-                $allow = in_array(USER_ROLE_ID,$array[3]);
+                $name=$array[1];
                 break;
                 }
             }
 
-	return $allow;
+        if(($name == '') && ($fileName == 'index.php'))
+            $name ='Старт';
+        return $name;
 	}
 
-//--------------------------------------------------------------
 
-public function html()
+    /**
+     * ДЛя распредлеления доступа по ролям. В тестовом задании не используется
+     * @param string $fileName
+     * @return bool
+     */
+    public function allow(string $fileName): bool
 	{
-		$html=$this->html_desktop();
-		return $html;
+        $allow=false;
+
+        if(USER_ROLE_ID == roles::ADMIN)
+            $allow=true;
+        else
+            foreach($this->submenu as $key=>$array)
+                {
+                if($array[2]==$fileName)
+                    {
+                    $allow = in_array(USER_ROLE_ID,$array[3]);
+                    break;
+                    }
+                }
+
+        return $allow;
 	}
 
-//--------------------------------------------------------------
+    /**
+     * Построение верхнего меню приложения
+     * @return string
+     */
+    public function html(): string
+    {
+            $html=$this->html_desktop();
+            return $html;
+        }
 
-protected function mainmenu_etalon()
+    protected function mainmenu_etalon()
 	{
 	$mainmenu = array
 	(
@@ -82,9 +95,8 @@ protected function mainmenu_etalon()
 
 	}
 
-//--------------------------------------------------------------
 
-protected function submenu_etalon()
+    protected function submenu_etalon()
 	{
 	$submenu= array
 		(
@@ -99,9 +111,11 @@ protected function submenu_etalon()
 	return $submenu;
 	}
 
-//--------------------------------------------------------------
-
-protected function mainmenu_basic() /* На случай сложной логики. Сейчас просто воспроизводит массив mainmenu_etalon().  */
+    /**
+     * На случай сложной логики. Сейчас просто воспроизводит массив mainmenu_etalon()
+     * @return array
+     */
+    protected function mainmenu_basic(): array
 	{
 	$etalon= $this->mainmenu_etalon();
 
@@ -122,9 +136,7 @@ protected function mainmenu_basic() /* На случай сложной логи
 	return $basic;
 	}
 
-//--------------------------------------------------------------
-
-protected function submenu_basic() 
+    protected function submenu_basic()
 	{
 	$etalon= $this->submenu_etalon();
 
@@ -190,8 +202,5 @@ protected function div_desktop($id,$one)
 		return $html;
 	}
 
-
-//--------------------------------------------------------------
-
-}//end of class
+}
 

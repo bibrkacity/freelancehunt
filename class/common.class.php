@@ -1,18 +1,20 @@
 <?php
 
-/*===================================
+/**
 Методы общего назначения. Фактически - библиотека функций
-====================================*/
-
+*/
 class common
 {
 
-//--------------------------------------
-
-//Получение из текста числа
-// Обрабатываем запятые и пробелы
-public static function toNumber($s,$type="float",$default=null)
-	{
+    /**
+     * Получение из текста числа. Обрабатываем запятые и пробелы
+     * @param string|null $s текст, из которого получаем число
+     * @param string $type числовой тип, в который нужно преобразовать
+     * @param mixed|null $default что вернуть, если не получилось преобразовать
+     * @return mixed
+     */
+    public static function toNumber(string $s=null, string $type="float", mixed $default=null): mixed
+    {
 	if($s===null)
 		{
 		return $default;
@@ -34,10 +36,12 @@ public static function toNumber($s,$type="float",$default=null)
 	}
 
 
-
-//---------------------------------------
-
-public static function path_compact($path) //Убрать из пути переходы на верхний уровень
+    /**
+     * Убрать из пути переходы на верхний уровень
+     * @param string $path путь, содержащий переходы на верхний уровень
+     * @return string
+     */
+    public static function path_compact(string $path) : string  //
 	{
 	$re='/\\\/';
 	$path = preg_replace($re,'/',$path);
@@ -55,10 +59,11 @@ public static function path_compact($path) //Убрать из пути пере
 	return $path;
 	}
 
-
-//------ формирование части URL-а по имени ----------
-
-    public static function mobile()
+    /**
+     * Установка констант, определяющий, мобитльное устройство или нет
+     * @return void
+     */
+    public static function mobile():void
     {
 
         $re = '/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i' ;
@@ -73,4 +78,3 @@ public static function path_compact($path) //Убрать из пути пере
     }
 
 }
-?>

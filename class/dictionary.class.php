@@ -6,42 +6,117 @@
 abstract class dictionary
 {
 
-	protected $search_title;  /* Заголовок окна поиска */
+    /**
+     * Заголовок окна поиска
+     * @var string
+     */
+    protected $search_title;
 
-	protected $action;  /* Файл вызывающей страницы */
-	protected $_post;	// Метод POST
-	protected $_get;	// Метод GET
+    /**
+     * URL вызывающей страницы
+     * @var string
+     */
+    protected string $action;
 
-	protected int $page;	//Номер страницы справочника (когда таблица многостраничная)
-	protected $title;	//Заголовок стпавочника (<h1> над таблицей)
+    /**
+     * Метод POST
+     * @var array
+     */
+    protected array $_post;
 
-	protected $sorting_fields;	//Поля сортировки (массив)
+    /**
+     * Метод GET
+     * @var array
+     */
+	protected array $_get;
 
-	protected $filters_default; //Фильтры и их значения по умолчанию (массив)
+    /**
+     * Номер страницы справочника (когда таблица многостраничная)
+     * @var int|mixed
+     */
+    protected int $page;
 
-	protected $filters; //Фильтры и их значения по умолчанию (массив)
+    /**
+     * Заголовок стравочника (<h1> над таблицей)
+     * @var string
+     */
+    protected string $title;
 
-	protected $dict_class; //Текущий класс
+    /**
+     * Поля сортировки
+     * @var array
+     */
+    protected array $sorting_fields;
 
-	protected $in_page;		//Число строк в таблдице объектов на одной странице (при многостраницной таблице)
+    /**
+     * Фильтры и их значения по умолчанию
+     * @var array
+     */
+	protected array $filters_default;
 
-	protected $conn;		//Подключение к базе данных (по умолчанию - текущее)
+    /**
+     * Фильтры и их значения
+     * @var array
+     */
+	protected array $filters;
 
-    protected $error;
+    /**
+     * Текущий класс (ребенок dictionary)
+     * @var string
+     */
+    protected string $dict_class;
 
-//---------------------------------------------------
+    /**
+     * Число строк в таблдице объектов на одной странице (при многостраницной таблице)
+     * @var int|mixed
+     */
+    protected int $in_page;
 
-abstract public function search();  //HTML-код, вставляемый в окно поиска
-
-abstract protected function exists()  : string;	//Таблица объектов
-abstract protected function filters() : string;  //Строка, содержащая критерии отбора (в шапке таблицы)
-
-abstract protected function query_pages() : string;	//Составление запроса количества отобранных объектов
-abstract protected function query_total() : string;  //Составление запроса количества всех объектов
+    /**
+     * Подключение к базе данных (по умолчанию - текущее)
+     * @var mixed|false|mysqli
+     */
+    protected mixed $conn;
 
 
-/* конструктор для производных классов */
-public function __construct($action,$get,$post,$connection=null)
+    /**
+     * HTML-код, вставляемый в окно поиска
+     * @return mixed
+     */
+    abstract public function search();
+
+    /**
+     * Таблица объектов
+     * @return string
+     */
+    abstract protected function exists()  : string;
+
+    /**
+     * Строка, содержащая критерии отбора (в шапке таблицы объектов)
+     * @return string
+     */
+    abstract protected function filters() : string;
+
+    /**
+     * Составление запроса количества отобранных объектов
+     * @return string
+     */
+    abstract protected function query_pages() : string;	//
+
+    /**
+     * Составление запроса количества всех объектов
+     * @return string
+     */
+    abstract protected function query_total() : string;
+
+    /**
+     * конструктор для производных классов
+     * @param string $action  URL вызывающей страницы
+     * @param array $get  Данные GET
+     * @param array $post Данные POST
+     * @param mixed $connection Подключение к базе данных (по умолчанию - текущее)
+     */
+    public function __construct(string $action, array $get, array $post, mixed $connection=null)
 	{
 		if(isset($get['inpage']))
 			{
@@ -78,16 +153,24 @@ public function __construct($action,$get,$post,$connection=null)
 
 	}
 
-// запускается при  попытке получить извне значенеи защищённого свойства 
-public function __get($property)
+    /**
+     * запускается при  попытке получить извне значенеи защищённого свойства
+     * @param string $property
+     * @return mixed
+     */
+    public function __get(string $property) : mixed
 	{
 	if(!property_exists($this,$property))
 		return null;
 
 	return $this->$property;
 	}
-//---------------------------------------------------
-public function html(): string //HTML-код страницы справочника
+
+    /**
+     * HTML-код страницы справочника
+     * @return string
+     */
+    public function html(): string
 	{
 
 	global $conn;
@@ -115,11 +198,11 @@ public function html(): string //HTML-код страницы справочни
 	}
 
 
-/*======================================
-PROTECTED
-========================================*/
-
-protected function combo() //Список вариантов количества строк на одной странице
+    /**
+     * Список вариантов количества строк на одной странице
+     * @return string
+     */
+    protected function combo(): string
 	{
 	$pages = array
 		(
@@ -154,10 +237,12 @@ protected function combo() //Список вариантов количеств�
 
 	}
 
-//-----------------------------------------------------------
-
-protected function button_search()
-	{
+    /**
+     * Кнопка поиска
+     * @return string
+     */
+    protected function button_search(): string
+    {
 
 	$html=" <input class=\"knopka\" type=\"button\" value=\"Поиск\" onclick=\"open_filters()\" /><span id=\"tri\">&#9658;</span>";
 
@@ -169,13 +254,21 @@ protected function button_search()
 
 	}
 
+    /**
+     * Дополнительные кнопки (вот для тестового задания понадобилось)
+     * @return string
+     */
     protected function button_additional() : string
     {
         return '';
     }
 //-----------------------------------------------------------
 
-protected function fill_arrays() //Заполнение массивов фильтров и параметров сортировки на основе GET
+    /**
+     * Заполнение массивов фильтров и параметров сортировки на основе GET
+     * @return void
+     */
+    protected function fill_arrays(): void
 	{
 
 	$new_array=array();
@@ -197,8 +290,12 @@ protected function fill_arrays() //Заполнение массивов фил�
 	$this->fill_arrays_filters();
 	}
 
-//------------------------------------
-protected function fill_arrays_filters()  //Заполнение массивов фильтров на основе GET
+
+    /**
+     * Заполнение массивов фильтров на основе GET
+     * @return void
+     */
+    protected function fill_arrays_filters(): void
 	{
 	$this->filters=$this->filters_default;
 	foreach($this->filters as $field=>$f_value)
@@ -213,12 +310,14 @@ protected function fill_arrays_filters()  //Заполнение массиво�
 		}
 	}
 
-//------------------------------------
-
-protected function total()  //Получение количества всех объектов справочника
+    /**
+     * Получение количества всех объектов справочника
+     * @return int
+     */
+    protected function total() : int
 	{
 	$query=$this->query_total();
-
+    $n=0;
 	$result=mysqli_query($this->conn, $query);
 	while($row=mysqli_fetch_row($result))
 		{
@@ -231,7 +330,12 @@ protected function total()  //Получение количества всех �
 
 //------------------------------------
 
-protected function pages(&$n)   //Получение HTML-кода ссылок на страницы справочника
+    /**
+     * Получение HTML-кода ссылок на страницы справочника
+     * @param int $n
+     * @return string
+     */
+    protected function pages(int &$n): string
 	{
 	$filters="inpage=".$this->in_page;
 	foreach($this->filters as $name=>$value)
@@ -311,6 +415,10 @@ protected function pages(&$n)   //Получение HTML-кода ссылок 
 	}
 
 
+    /**
+     * JS-код, обслуживающий справочник
+     * @return string
+     */
     protected function js(): string
     {
         $js  = $this->js_general();
@@ -402,10 +510,14 @@ protected function js_search(): string
 
 	}
 
-//----------------------------------------------
 
-protected function table_sort($property)
-	{
+    /**
+     * Таблица для стрелочек сортировки. Архаика, надо при случае переписать
+     * @param string $property имя поля сортировки (индекс массива $this->sorting_fields)
+     * @return string
+     */
+    protected function table_sort(string $property): string
+{
 
 	$html="<table  class=\"sort\">";
 	$html.="<tr>";
@@ -414,12 +526,11 @@ protected function table_sort($property)
 	if($this->sorting_fields[$property]!='asc')
 		{
 		$url=$this->sorting_url($property,'asc');
-		$title="Отсортировать по возрастанию";
-		$html.="<a  class=\"sorting\" href=\"$url\">&#9650;</a>";
+		$title="Відсортувати за зростанням";
+		$html.="<a  class=\"sorting\" title=\"$title\" href=\"$url\">&#9650;</a>";
 		}
 	else
 		{
-		$title="Отсортировано по возрастанию";
 		$html.="&#9650;";
 		}
 	$html.="</td>";
@@ -431,12 +542,11 @@ protected function table_sort($property)
 	if($this->sorting_fields[$property]!='desc')
 			{
 			$url=$this->sorting_url($property,'desc');
-			$title="Отсортировать по убыванию";
-			$html.="<a class=\"sorting\" href=\"$url\">&#9660;</a>";
+			$title="Сортувати у порядку спаданню";
+			$html.="<a class=\"sorting\" title=\"$title\" href=\"$url\">&#9660;</a>";
 			}
 	else
 			{
-			$title="Отсортировано по убыванию";
 			$html.="&#9660;";
 			}
 
@@ -447,9 +557,15 @@ protected function table_sort($property)
 	return $html;			
 	}
 
-//----------------------------------------------------------------
-protected function sorting_url($field,$value)
-	{
+
+    /**
+     * URL для стрелочки сортировки
+     * @param string $field  имя поля сортировки (индекс массива $this->sorting_fields)
+     * @param string $value  asc, desc
+     * @return string
+     */
+    protected function sorting_url(string $field, string $value): string
+{
 
 	$url_common="inpage=".$this->in_page;
 	foreach($this->filters as $field2=>$value2)
@@ -464,10 +580,15 @@ protected function sorting_url($field,$value)
 
 	}
 
-//------------------------------------------
 
-protected function th_sort($name,$sort_name)  
-	{
+    /**
+     * Ячейка таблицы объектов с сортировкой
+     * @param string $name имя фильтра (индекс массива $this->>filters)
+     * @param string $sort_name asc, desc, no
+     * @return string
+     */
+    protected function th_sort(string $name, string $sort_name): string
+{
 
 	$html="<th class=\"usual_small\">";
 		$html.="<table>";
@@ -486,13 +607,15 @@ protected function th_sort($name,$sort_name)
 	return $html;
 	}
 
-
-//------------------------------------------
-
-protected function  colspan($colspan) //ЗАРЕЗЕРВИРОВАНА на будущее
+    /**
+     * ЗАРЕЗЕРВИРОВАНА на будущее
+     * @param $colspan
+     * @return string
+     */
+    protected function  colspan($colspan): string //
 	{
 	return '';
 	}
 
-} //end class
+}
 

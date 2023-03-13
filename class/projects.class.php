@@ -3,7 +3,7 @@
 class projects extends dictionary
 {
 
-    public function __construct(string $action, array $get, array $post, $connection = null)
+    public function __construct(string $action, array $get, array $post, mixed $connection = null)
     {
         parent::__construct($action, $get, $post, $connection);
 

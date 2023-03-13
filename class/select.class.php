@@ -1,16 +1,39 @@
 <?php
-//Класс работы с select
-class select 
-{
-protected $name;       // имя select-a (списка или комбобокса)
-protected $options;    // асоциативный массив "значение=>текст"
-protected $value;      // значение select-a (списка или комбобокса), может быть массивом
-protected $attributes; // доп. атрибуты тега
-protected $disabled; //Метка в конце имени опции, указывающая на её недоступность 
-protected $show_all; //Если true -- ингорирует метки недоступности и вычистит их 
-protected $ignore; //Метка в конце имени опции, указывающая, что эту опцию показывать не надо 
 
-function __construct($name,$options,$value=NULL,$attributes="",$disabled=DISABLED,$show_all=false,$ignore=IGNORE)
+/**
+ * Построение тега select
+ */
+class select
+{
+    /**
+     * имя select-a (списка или комбобокса)
+     * @var string
+     */
+    protected string $name;
+
+    /**
+     * асоциативный массив "значение=>текст"
+     * @var array
+     */
+    protected array $options;
+
+    protected $value;      // ), может быть массивом
+    protected string $attributes; // доп. атрибуты тега
+    protected string $disabled; //Метка в конце имени опции, указывающая на её недоступность
+    protected bool $show_all; //Если true -- ингорирует метки недоступности и вычистит их
+    protected string $ignore; //Метка в конце имени опции, указывающая, что эту опцию показывать не надо
+
+    /**
+     * Конструктор
+     * @param string $name имя select-a (списка или комбобокса)
+     * @param array $options  асоциативный массив опций "значение=>текст"
+     * @param string|array|NULL $value значение select-a (списка или комбобокса)
+     * @param string $attributes  доп. атрибуты тега
+     * @param string $disabled  Метка в конце имени опции, указывающая на её недоступность
+     * @param bool $show_all Если true -- ингорирует метки недоступности и вычистит их
+     * @param string $ignore Метка в конце имени опции, указывающая, что эту опцию показывать не надо
+     */
+    function __construct(string $name, array $options, string|array $value=NULL, string $attributes="", string $disabled=DISABLED, bool $show_all=false, string $ignore=IGNORE)
 	{
 	$this->name=$name;
 	$this->options=$options;
@@ -25,7 +48,12 @@ function __construct($name,$options,$value=NULL,$attributes="",$disabled=DISABLE
 
 //---------------------------------
 
-function html($break = true)
+    /**
+     * Построение HTML-кода тега SELECT
+     * @param bool $break ставить ли конец строки после тега
+     * @return string
+     */
+    function html(bool $break = true) : string
 	{
 	$select="\n<select name=\"".$this->name."\" ".$this->attributes.">";
 
@@ -85,9 +113,4 @@ function html($break = true)
 	return $select;
 	}
 
-//---------------------------------
-
-
-
-}//end class
-?>
+}

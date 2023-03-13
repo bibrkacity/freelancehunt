@@ -1,35 +1,27 @@
 <?php
 
-/*=======================
-Построение страницы
-=========================*/
-
+/**
+ * Построение полного HTML-кода страницы приложения
+ */
 class page
 {
 	
-	protected $brief;
+	protected string $brief;
 
-	protected $template;
-	protected $templateDir;
+	protected string $template;
+	protected string $templateDir;
 
-	protected $title;
+	protected string $title;
 
-	protected $content;
+	protected string $content;
 
-	protected $add_css;
-	protected $add_js;
+	protected string $add_css;
+	protected string $add_js;
 
-	protected $messages;
-	protected $show_messages;
-
-	protected $ignore_login;
+	protected bool $ignore_login;
 
 
-
-
-//-------------------------------
-
-public function __construct($brief, $template, $content,$add_css='',$add_js='',$ignore_login=false)
+public function __construct(string $brief, string $template, string $content,string $add_css='',string $add_js='', bool $ignore_login=false)
 	{
 
 	$this->brief	=$brief;
@@ -40,10 +32,6 @@ public function __construct($brief, $template, $content,$add_css='',$add_js='',$
 	$this->add_js	=$add_js;
 
 	$this->ignore_login	=$ignore_login;
-
-	$this->getMessages(); 
-
-
 
 	}
 
@@ -64,18 +52,17 @@ public function __set($property,$value)
 		$this->$property = $value;
 	}
 
-//------------
-
 public function __call($name ,$arguments )
 	{
 	if( method_exists($this,$name))
 		return $this->$name();	
 	}
 
-
-//--------------------------------
-
-public function html()
+    /**
+     * Построение полного HTML-кода страницы
+     * @return string
+     */
+    public function html() : string
 	{
 
 	$menu = new menu();
@@ -104,13 +91,10 @@ protected function getTemplateCode()
 
 	$filename = $dir.'/index.html'; 
 
-	$html = '';
-
 	if( file_exists($filename)  )
 		$html = file_get_contents($filename);
 	else
 		{
-		log::write('error',__FILE__.', line '.__LINE__.' Absent template '.$filename);
 		$html = 'Template '.$filename.' is absent';
 		}
 
@@ -272,15 +256,17 @@ protected function header_menu()
 	return $html;
 	}
 
-protected function header_menu_mobile()
-    {
+protected function header_menu_mobile(): string
+{
+    return '';
 
-	if( MOBILE == 0)
+/*
+ * 	if( MOBILE == 0)
 		return '';
-
         $menu=new header_menu_mobile(1,0,1);
         $html=$menu->mainmenu();
         return $html;
+*/
     }
 
 protected function footer()
@@ -326,5 +312,3 @@ protected function wrapperOnClick()
 
 }
 
-
-?>
