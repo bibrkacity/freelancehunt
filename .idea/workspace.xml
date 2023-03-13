@@ -6,14 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e4b425cd-90fb-42d6-9fc5-d5b7db76222b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/class/common.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/class/common.class.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/class/dictionary.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/class/dictionary.class.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/class/menu.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/class/menu.class.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/class/page.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/class/page.class.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/class/projects.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/class/projects.class.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/class/roles.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/class/roles.class.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/class/select.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/class/select.class.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/class/view.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/class/view.class.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +41,7 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -69,7 +63,8 @@
       <workItem from="1678552145013" duration="18417000" />
       <workItem from="1678607855719" duration="6057000" />
       <workItem from="1678655573191" duration="3614000" />
-      <workItem from="1678685639331" duration="10788000" />
+      <workItem from="1678685639331" duration="11493000" />
+      <workItem from="1678704566385" duration="947000" />
     </task>
     <task id="LOCAL-00001" summary="Список проектов (без диаграммы)">
       <created>1678612717668</created>
@@ -99,7 +94,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678692851576</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Рефакторинг">
+      <created>1678697540606</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1678697540606</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -110,6 +112,7 @@
     <MESSAGE value="Рефакторинг JS" />
     <MESSAGE value="Диаграмма" />
     <MESSAGE value="README.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="README.md" />
+    <MESSAGE value="Рефакторинг" />
+    <option name="LAST_COMMIT_MESSAGE" value="Рефакторинг" />
   </component>
 </project>

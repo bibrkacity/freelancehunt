@@ -5,23 +5,65 @@
  */
 class page
 {
-	
-	protected string $brief;
+    /**
+     * Краткое имя вызывающего файла
+     * @var string
+     */
+    protected string $brief;
 
-	protected string $template;
-	protected string $templateDir;
+    /**
+     * Название шаблона (имя папки)
+     * @var string
+     */
+    protected string $template;
 
-	protected string $title;
+    /**
+     * Папка с шаблонами
+     * @var string
+     */
+    protected string $templateDir;
 
-	protected string $content;
+    /**
+     * Содержимое тега title
+     * @var string
+     */
+    protected string $title;
 
+    /**
+     * Содержание страницы (HTML)
+     * @var string
+     */
+    protected string $content;
+
+    /**
+     * Дополнительный (к файлам шаблона и общим файлам) CSS-код или ссылки на файлы
+     * @var string
+     */
 	protected string $add_css;
+
+    /**
+     * Дополнительный (к файлам шаблона и общим файлам) JS-код или ссылки на файлы
+     * @var string
+     */
 	protected string $add_js;
 
-	protected bool $ignore_login;
+    /**
+     * Если true - содержание откроется и незалогиненному пользователю
+     * @var bool
+     */
+    protected bool $ignore_login;
 
 
-public function __construct(string $brief, string $template, string $content,string $add_css='',string $add_js='', bool $ignore_login=false)
+    /**
+     * Конструктор
+     * @param string $brief Краткое имя вызывающего файла
+     * @param string $template Название шаблона (имя папки)
+     * @param string $content Содержание страницы (HTML)
+     * @param string $add_css Дополнительный (к файлам шаблона и общим файлам) CSS-rjl или ссылки на файлы
+     * @param string $add_js Дополнительный (к файлам шаблона и общим файлам) JS-код или ссылки на файлы
+     * @param bool $ignore_login Если true - содержание откроется и незалогиненному пользователю
+     */
+    public function __construct(string $brief, string $template, string $content, string $add_css='', string $add_js='', bool $ignore_login=false)
 	{
 
 	$this->brief	=$brief;
@@ -35,27 +77,23 @@ public function __construct(string $brief, string $template, string $content,str
 
 	}
 
-//------------
-
-public function __get($property)
+    public function __get($property)
 	{
-	if( property_exists($this,$property))
-		return $this->$property;
+        if( property_exists($this,$property))
+            return $this->$property;
 	}
 
-//------------
-
-public function __set($property,$value)
+    public function __set($property,$value)
 	{
-	$str = ['content','template','add_css','add_js','ignore_login'];
-	if( in_array($property, $str))
-		$this->$property = $value;
+        $str = ['content','template','add_css','add_js','ignore_login'];
+        if( in_array($property, $str))
+            $this->$property = $value;
 	}
 
-public function __call($name ,$arguments )
+    public function __call($name ,$arguments )
 	{
-	if( method_exists($this,$name))
-		return $this->$name();	
+        if( method_exists($this,$name))
+            return $this->$name();
 	}
 
     /**
@@ -78,32 +116,34 @@ public function __call($name ,$arguments )
 
 	}
 
-/*=======================
-			PROTECTED
-=========================*/
+    /**
+     * Получение html-кода шаблона
+     * @return bool|string
+     */
+    protected function getTemplateCode(): bool|string
+    {
 
-protected function getTemplateCode()
-	{
-
-	$dir = $this->getTemplateDir();
-	$this->templateDir = $dir;
+        $dir = $this->getTemplateDir();
+        $this->templateDir = $dir;
 
 
-	$filename = $dir.'/index.html'; 
+        $filename = $dir.'/index.html';
 
-	if( file_exists($filename)  )
-		$html = file_get_contents($filename);
-	else
-		{
-		$html = 'Template '.$filename.' is absent';
-		}
+        if( file_exists($filename)  )
+            $html = file_get_contents($filename);
+        else
+            {
+            $html = 'Template '.$filename.' is absent';
+            }
 
-	return $html;
+        return $html;
 	}
 
-//--------------------------------
-
-protected function getTemplateDir()
+    /**
+     * Получение полного пути к папке с шаблонами
+     * @return string
+     */
+    protected function getTemplateDir():string
 	{
 	$dir = __DIR__. '/../templates';
 
@@ -115,67 +155,65 @@ protected function getTemplateDir()
 
 	}
 
-//--------------------------------
-
-protected function content()
+    /**
+     * Получение html-кода страницы. В тестовом задании смысла не имеет
+     * @return string
+     */
+    protected function content():string
 	{
 
-	global $conn;
+        global $conn;
 
-	$html = '';
+        $html = '';
 
-	if($this->ignore_login)
-		$html = $this->content;
-	else
-		{
-			$menu = new menu();
-			$allow=$menu->allow($this->brief);
+        if($this->ignore_login)
+            $html = $this->content;
+        else
+            {
+                $menu = new menu();
+                $allow=$menu->allow($this->brief);
 
-			if($allow)
-				$html = $this->content;
-			else
-				$html = $this->restricted_message('role');
-		}
-	return $html;
+                if($allow)
+                    $html = $this->content;
+                else
+                    $html = $this->restricted_message('role');
+            }
+        return $html;
 
 	}
 
-//--------------------------------
+    protected function login_form(): string
+    {
 
-protected function login_form()
-	{
+        $html = view::render('login',$this);
 
-	$html = view::render('login',$this);
-
-	return $html;
+        return $html;
 
 	}
 
 
-//--------------------------------
+    protected function restricted_message($subj): string
+    {
 
-protected function restricted_message($subj)
-	{
+        $view = '';
 
-	$view = '';
+        switch($subj)
+            {
+            case 'user':
+                $view = 'ban_user';
+                break;
+            case 'client':
+                $view = 'ban_client';
+                break;
+            case 'role':
+                $view = 'ban_role';
+                break;
+            case 'office':
+                $view = 'no_offices';
+                break;
+            }
 
-	switch($subj)
-		{
-		case 'user':
-			$view = 'ban_user';
-			break;
-		case 'client':
-			$view = 'ban_client';
-			break;
-		case 'role':
-			$view = 'ban_role';
-			break;
-		case 'office':
-			$view = 'no_offices';
-			break;
-		}
-
-	return view::render($view, $this);
+        return view::render($view, $this);
 
 	}
 
