@@ -238,6 +238,84 @@ class projects extends dictionary
 
     private function graph() : string
     {
-        return 'stub';
+        global $conn;
+        $query = "SELECT
+        IF(`projects`.`budget` < 500,1,
+              IF(`projects`.`budget` < 1000,2,
+                  IF(`projects`.`budget` < 5000,3,4)
+                )
+           ) `sector` , COUNT(`projects`.`id`) `n`
+        FROM `projects` ";
+
+        if( $this->filters['bySkill'] != '0')
+            $query .= " JOIN `project_skill` ON (`projects`.`id` = `project_skill`.`project_id`)";
+        $query .= $this->where();
+        $query .= " GROUP BY `sector` ORDER BY `sector`";
+
+        $groups = [];
+        $sectors = [
+            1=> '<500',
+            2=> '500÷1000',
+            3=> '1000÷5000',
+            4=> '>5000',
+        ];
+
+        $result = mysqli_query($this->conn, $query ) ;
+        while ($row = mysqli_fetch_assoc($result)) {
+            $groups[]= [
+                $sectors[(int)$row['sector']], (int)$row['n']
+            ];
+        }
+        mysqli_free_result($result);
+
+        $data = '';
+
+        foreach($groups as $group){
+            $data .= '[\''.$group[0] .'\', '.$group[1]. '],';
+        }
+
+
+        $html = <<<PIE
+<div id="chart_div"></div>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+        // Create the data table.
+        let data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
+        data.addRows([
+          $data
+        ]);
+
+        // Set chart options
+        let options = {'title':'Projects',
+                       'width':400,
+                       'height':300};
+
+        // Instantiate and draw our chart, passing in some options.
+        let chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+
+PIE;
+
+
+    return $html;
+
+
     }
 }
