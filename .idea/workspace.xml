@@ -5,9 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e4b425cd-90fb-42d6-9fc5-d5b7db76222b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/views/start.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/class/projects.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/class/projects.class.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/projects.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles/projects.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/constants.php" beforeDir="false" afterPath="$PROJECT_DIR$/inc/constants.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +65,7 @@
       <workItem from="1678552145013" duration="18417000" />
       <workItem from="1678607855719" duration="6057000" />
       <workItem from="1678655573191" duration="3614000" />
-      <workItem from="1678685639331" duration="4434000" />
+      <workItem from="1678685639331" duration="6096000" />
     </task>
     <task id="LOCAL-00001" summary="Список проектов (без диаграммы)">
       <created>1678612717668</created>
@@ -79,7 +81,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678659367818</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Диаграмма">
+      <created>1678691242361</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1678691242368</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -88,6 +97,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Список проектов (без диаграммы)" />
     <MESSAGE value="Рефакторинг JS" />
-    <option name="LAST_COMMIT_MESSAGE" value="Рефакторинг JS" />
+    <MESSAGE value="Диаграмма" />
+    <option name="LAST_COMMIT_MESSAGE" value="Диаграмма" />
   </component>
 </project>
