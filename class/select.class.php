@@ -17,17 +17,41 @@ class select
      */
     protected array $options;
 
-    protected $value;      // ), может быть массивом
-    protected string $attributes; // доп. атрибуты тега
-    protected string $disabled; //Метка в конце имени опции, указывающая на её недоступность
-    protected bool $show_all; //Если true -- ингорирует метки недоступности и вычистит их
-    protected string $ignore; //Метка в конце имени опции, указывающая, что эту опцию показывать не надо
+    /**
+     * Значение select. Для списка может быть массивом
+     * @var string|array|NULL
+     */
+    protected string|array|null $value;
+
+    /**
+     * доп. атрибуты тега
+     * @var string
+     */
+    protected string $attributes;
+
+    /**
+     * Метка в конце имени опции, указывающая на её недоступность
+     * @var string
+     */
+    protected string $disabled;
+
+    /**
+     * Если true -- ингорирует метки недоступности и вычистит их
+     * @var bool
+     */
+    protected bool $show_all;
+
+    /**
+     * Метка в конце имени опции, указывающая, что эту опцию показывать не надо
+     * @var string
+     */
+    protected string $ignore;
 
     /**
      * Конструктор
      * @param string $name имя select-a (списка или комбобокса)
      * @param array $options  асоциативный массив опций "значение=>текст"
-     * @param string|array|NULL $value значение select-a (списка или комбобокса)
+     * @param string|array|NULL $value Значение select. Для списка может быть массивом
      * @param string $attributes  доп. атрибуты тега
      * @param string $disabled  Метка в конце имени опции, указывающая на её недоступность
      * @param bool $show_all Если true -- ингорирует метки недоступности и вычистит их
