@@ -217,30 +217,29 @@ class page
 
 	}
 
-//--------------------------------
-
-protected function replace_urls($html)
+    /**
+     * Коррекция URL-ов из шаблона. Чтоб можно было просматривать шаблоны
+     * @param string $html код HTML-страницы
+     * @return string
+     */
+    protected function replace_urls(string $html) : string
 	{
 
-	$url = preg_replace('/.*templates/','/templates',$this->templateDir);
+        $url = preg_replace('/.*templates/','/templates',$this->templateDir);
 
-	$html = preg_replace('/"images\//', '"'.$url.'/images\/',$html);
-	$html = preg_replace('/"css\//',	'"'.$url.'/css/',$html);
-	$html = preg_replace('/"js\//',		'"'.$url.'/js/',$html);
+        $html = preg_replace('/"images\//', '"'.$url.'/images\/',$html);
+        $html = preg_replace('/"css\//',	'"'.$url.'/css/',$html);
+        $html = preg_replace('/"js\//',		'"'.$url.'/js/',$html);
 
-	return $html;
+        return $html;
 
 	}
-
-//--------------------------------
 
 protected function mobile_test()
 	{
 	$html = view::render('mobile_test',$this);
 	return $html;
 	}
-
-//--------------------------------
 
 protected function header_outer()
 	{
@@ -253,14 +252,11 @@ protected function header_outer()
 	return $html;
 	}
 
-//--------------------------------
 
 protected function header_client()
 	{
 	return 'guest';
 	}
-
-//--------------------------------
 
 protected function header_office()
 	{
@@ -280,8 +276,6 @@ protected function header_user()
 	return 'Здравствуйте, guest!';
 
 	}
-
-//--------------------------------
 
 protected function header_menu()
 	{
@@ -307,15 +301,15 @@ protected function header_menu_mobile(): string
 */
     }
 
-protected function footer()
-	{
+protected function footer(): string
+{
 	$html = view::render('footer',$this);
 	return $html;
 
 	}
 
-protected function m()
-	{
+protected function m(): string
+{
 
 	if( MOBILE == 0)
 		return '';
@@ -324,8 +318,8 @@ protected function m()
 	return $html;
 	}
 
-protected function css_menu()
-	{
+protected function css_menu(): string
+{
 	$view = ( MOBILE == 1) ? 'css_menu_mobile' : 'css_menu_desktop';
 	$html = view::render($view,$this);
 	return $html;
